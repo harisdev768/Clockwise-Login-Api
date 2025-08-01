@@ -6,21 +6,11 @@ class UserCollection
 {
     private array $users = [];
 
-    public function __construct(array $users = [])
-    {
-        foreach ($users as $user) {
-            $this->add($user);
-        }
-    }
-
     public function add(User $user): void
     {
         $this->users[] = $user;
     }
 
-    /**
-     * Returns array of hydrated users
-     */
     public function toArray(): array
     {
         return array_map(function (User $user) {
@@ -45,6 +35,7 @@ class UserCollection
                 'department_name'=> $user->getDepartment()->getDepartmentName() ?? null,
                 'jobrole'      => $user->getJobRole()->getJobRoleId() ?? null,
                 'jobrole_name' => $user->getJobRole()->getJobRoleName() ?? null,
+                'last_login'   => $user->getLastLogin() ?? "N/A",
             ];
         }, $this->users);
     }
